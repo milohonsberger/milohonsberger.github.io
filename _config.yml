@@ -1,0 +1,42 @@
+title: Milo Honsberger
+description: >-
+  Mapping, geospatial analysis, and remote sensing portfolio — web maps,
+  Google Earth Engine applications, and static cartography.
+author: Milo Honsberger
+email: honsbergermilo@gmail.com
+baseurl: ""
+url: ""
+
+# Set this to your GitHub username/repo if it differs from <user>.github.io
+github_username: milohonsberger
+
+markdown: kramdown
+permalink: /:categories/:title/
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor

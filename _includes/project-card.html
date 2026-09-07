@@ -1,0 +1,19 @@
+{% comment %}
+  Renders one project card. Usage: {% include project-card.html project=project %}
+{% endcomment %}
+<article class="card">
+  {% if include.project.thumbnail %}
+  <a class="card-thumb" href="{{ include.project.url | relative_url }}">
+    <img src="{{ include.project.thumbnail | relative_url }}" alt="{{ include.project.title }} thumbnail" loading="lazy">
+  </a>
+  {% endif %}
+  <div class="card-body">
+    <h3><a href="{{ include.project.url | relative_url }}">{{ include.project.title }}</a></h3>
+    {% if include.project.tags %}
+    <ul class="tag-list">
+      {% for tag in include.project.tags %}<li>{{ tag }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <p>{{ include.project.summary | default: include.project.description | truncate: 140 }}</p>
+  </div>
+</article>

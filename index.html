@@ -1,0 +1,47 @@
+---
+layout: default
+title: Home
+---
+<section class="intro">
+  <h1>{{ site.author }}</h1>
+  <p>{{ site.description }}</p>
+</section>
+
+<section id="webmap">
+  <h2>Web Maps</h2>
+  <p class="section-note">Interactive maps built in Jupyter (Folium / ipyleaflet), linked out to a rendered notebook.</p>
+  <div class="card-grid">
+    {% assign webmaps = site.projects | where: "type", "webmap" %}
+    {% for project in webmaps %}
+      {% include project-card.html project=project %}
+    {% else %}
+      <p class="empty">No web map projects yet — add one under <code>_projects/</code>.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="gee">
+  <h2>Google Earth Engine</h2>
+  <p class="section-note">Published Earth Engine Apps for interactive geospatial analysis.</p>
+  <div class="card-grid">
+    {% assign geeprojects = site.projects | where: "type", "gee" %}
+    {% for project in geeprojects %}
+      {% include project-card.html project=project %}
+    {% else %}
+      <p class="empty">No Earth Engine projects yet — add one under <code>_projects/</code>.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="staticmap">
+  <h2>Static Maps</h2>
+  <p class="section-note">Cartography produced in QGIS/ArcGIS or Python (Matplotlib/GeoPandas).</p>
+  <div class="card-grid">
+    {% assign staticmaps = site.projects | where: "type", "staticmap" %}
+    {% for project in staticmaps %}
+      {% include project-card.html project=project %}
+    {% else %}
+      <p class="empty">No static map projects yet — add one under <code>_projects/</code>.</p>
+    {% endfor %}
+  </div>
+</section>

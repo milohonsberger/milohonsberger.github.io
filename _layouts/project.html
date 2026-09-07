@@ -1,0 +1,41 @@
+---
+layout: default
+---
+<article class="project">
+  <p><a href="{{ '/' | relative_url }}">&larr; All projects</a></p>
+  <h1>{{ page.title }}</h1>
+
+  {% if page.tags %}
+  <ul class="tag-list">
+    {% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+
+  <div class="project-actions">
+    {% if page.type == "webmap" and page.notebook_url %}
+      <a class="btn" href="{{ page.notebook_url }}" target="_blank" rel="noopener">View Notebook &rarr;</a>
+    {% endif %}
+    {% if page.type == "gee" and page.app_url %}
+      <a class="btn" href="{{ page.app_url }}" target="_blank" rel="noopener">Launch Earth Engine App &rarr;</a>
+    {% endif %}
+    {% if page.code_url %}
+      <a class="btn btn-secondary" href="{{ page.code_url }}" target="_blank" rel="noopener">Source Code &rarr;</a>
+    {% endif %}
+  </div>
+
+  {% if page.thumbnail %}
+  <img class="project-hero" src="{{ page.thumbnail | relative_url }}" alt="{{ page.title }}">
+  {% endif %}
+
+  {% if page.type == "staticmap" and page.images %}
+  <div class="gallery">
+    {% for img in page.images %}
+    <img src="{{ img | relative_url }}" alt="{{ page.title }} map {{ forloop.index }}" loading="lazy">
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="project-body">
+    {{ content }}
+  </div>
+</article>
