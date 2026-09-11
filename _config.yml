@@ -28,6 +28,13 @@ defaults:
       path: ""
     values:
       layout: default
+  # Assets must never be wrapped in a layout — doing so serves an HTML page
+  # at the .css/.js URL. This overrides the blanket default above (more
+  # specific path wins). Assets should also just omit front matter entirely.
+  - scope:
+      path: "assets"
+    values:
+      layout: none
 
 plugins:
   - jekyll-feed
