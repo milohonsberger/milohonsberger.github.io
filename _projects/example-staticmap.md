@@ -1,6 +1,7 @@
 ---
 title: Example Static Map
 type: staticmap
+featured: false # set true to include this project in the home page carousel
 summary: A short one-line summary shown on the home page card.
 tags: [QGIS, Cartography]
 thumbnail: /assets/images/example-staticmap-thumb.jpg

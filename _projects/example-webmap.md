@@ -1,6 +1,7 @@
 ---
 title: Example Interactive Web Map
 type: webmap
+featured: true
 summary: A short one-line summary shown on the home page card.
 tags: [Leaflet, Folium, Python]
 thumbnail: /assets/images/example-webmap-thumb.jpg

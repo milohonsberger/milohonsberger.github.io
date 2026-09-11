@@ -2,46 +2,48 @@
 layout: default
 title: Home
 ---
-<section class="intro">
+<section class="hero">
+  <p class="hero-eyebrow">Hello, welcome to my portfolio</p>
   <h1>{{ site.author }}</h1>
-  <p>{{ site.description }}</p>
-</section>
-
-<section id="webmap">
-  <h2>Web Maps</h2>
-  <p class="section-note">Interactive maps built in Jupyter (Folium / ipyleaflet), linked out to a rendered notebook.</p>
-  <div class="card-grid">
-    {% assign webmaps = site.projects | where: "type", "webmap" %}
-    {% for project in webmaps %}
-      {% include project-card.html project=project %}
-    {% else %}
-      <p class="empty">No web map projects yet — add one under <code>_projects/</code>.</p>
-    {% endfor %}
+  <p class="hero-lede">{{ site.description }}</p>
+  <div class="hero-actions">
+    <a class="btn" href="{{ '/portfolio/' | relative_url }}">View Portfolio &rarr;</a>
+    <a class="btn btn-secondary" href="{{ '/about/' | relative_url }}">More About Me &rarr;</a>
   </div>
 </section>
 
-<section id="gee">
-  <h2>Google Earth Engine</h2>
-  <p class="section-note">Published Earth Engine Apps for interactive geospatial analysis.</p>
-  <div class="card-grid">
-    {% assign geeprojects = site.projects | where: "type", "gee" %}
-    {% for project in geeprojects %}
-      {% include project-card.html project=project %}
-    {% else %}
-      <p class="empty">No Earth Engine projects yet — add one under <code>_projects/</code>.</p>
-    {% endfor %}
+<section class="featured">
+  <h2>Featured Work</h2>
+  {% assign featured = site.projects | where: "featured", true %}
+  {% if featured.size == 0 %}{% assign featured = site.projects %}{% endif %}
+
+  {% if featured.size > 0 %}
+  <div class="carousel" data-carousel>
+    <div class="carousel-track">
+      {% for project in featured %}
+      <article class="carousel-slide" {% unless forloop.first %}hidden{% endunless %}>
+        {% if project.thumbnail %}
+        <a class="carousel-image" href="{{ project.url | relative_url }}">
+          <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" loading="lazy">
+        </a>
+        {% endif %}
+        <div class="carousel-caption">
+          <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+          <p>{{ project.summary | default: project.description | truncate: 180 }}</p>
+          <a class="link-more" href="{{ project.url | relative_url }}">More About This Project &rarr;</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <button type="button" class="carousel-btn carousel-prev" aria-label="Previous project">&larr;</button>
+    <button type="button" class="carousel-btn carousel-next" aria-label="Next project">&rarr;</button>
+    <div class="carousel-counter"><span data-carousel-index>1</span> / {{ featured.size }}</div>
   </div>
+  {% else %}
+  <p class="empty">No projects yet — add one under <code>_projects/</code>.</p>
+  {% endif %}
+
+  <p class="more-link"><a href="{{ '/portfolio/' | relative_url }}">More Projects &rarr;</a></p>
 </section>
 
-<section id="staticmap">
-  <h2>Static Maps</h2>
-  <p class="section-note">Cartography produced in QGIS/ArcGIS or Python (Matplotlib/GeoPandas).</p>
-  <div class="card-grid">
-    {% assign staticmaps = site.projects | where: "type", "staticmap" %}
-    {% for project in staticmaps %}
-      {% include project-card.html project=project %}
-    {% else %}
-      <p class="empty">No static map projects yet — add one under <code>_projects/</code>.</p>
-    {% endfor %}
-  </div>
-</section>
+<script src="{{ '/assets/js/carousel.js' | relative_url }}" defer></script>

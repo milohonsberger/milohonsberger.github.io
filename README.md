@@ -7,6 +7,14 @@ Portfolio site built with Jekyll, hosted on GitHub Pages. Showcases:
 - **Google Earth Engine** — published Earth Engine Apps.
 - **Static Maps** — cartography from QGIS/ArcGIS or Python.
 
+## Pages
+
+- `/` ([index.html](index.html)) — hero + a carousel of featured projects
+- `/about/` ([about.md](about.md)) — bio
+- `/resume/` ([resume.md](resume.md)) — resume content / PDF download
+- `/portfolio/` ([portfolio.html](portfolio.html)) — full project listing, grouped by
+  Web Maps / Earth Engine / Static Maps
+
 ## Adding a project
 
 Add a new Markdown file under [`_projects/`](_projects/), copying whichever example
@@ -16,8 +24,9 @@ file matches the project type:
 - [`_projects/example-gee.md`](_projects/example-gee.md)
 - [`_projects/example-staticmap.md`](_projects/example-staticmap.md)
 
-Set `type` to `webmap`, `gee`, or `staticmap` — the home page automatically lists the
-project under the matching section. Put images in [`assets/images/`](assets/images/).
+Set `type` to `webmap`, `gee`, or `staticmap` — the Portfolio page automatically lists
+the project under the matching section. Set `featured: true` to also include it in the
+home page carousel. Put images in [`assets/images/`](assets/images/).
 
 Once you've added your own projects, delete the three `example-*.md` files.
 

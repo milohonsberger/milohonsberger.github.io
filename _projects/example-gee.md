@@ -1,6 +1,7 @@
 ---
 title: Example Earth Engine App
 type: gee
+featured: true
 summary: A short one-line summary shown on the home page card.
 tags: [Google Earth Engine, Remote Sensing]
 thumbnail: /assets/images/example-gee-thumb.jpg
