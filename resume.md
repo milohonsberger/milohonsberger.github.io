@@ -1,12 +1,12 @@
 ---
-layout: default
+layout: page
 title: Resume
 permalink: /resume/
 ---
 
 # Resume
 
-<p class="hero-actions">
+<p class="project-actions">
   <a class="btn" href="{{ '/assets/resume.pdf' | relative_url }}" target="_blank" rel="noopener">Download PDF &rarr;</a>
 </p>
 

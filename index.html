@@ -2,48 +2,64 @@
 layout: default
 title: Home
 ---
-<section class="hero">
-  <p class="hero-eyebrow">Hello, welcome to my portfolio</p>
-  <h1>{{ site.author }}</h1>
-  <p class="hero-lede">{{ site.description }}</p>
-  <div class="hero-actions">
-    <a class="btn" href="{{ '/portfolio/' | relative_url }}">View Portfolio &rarr;</a>
-    <a class="btn btn-secondary" href="{{ '/about/' | relative_url }}">More About Me &rarr;</a>
+<section class="banner">
+  <img class="banner-img" src="{{ '/assets/images/banner-nile-qena.jpg' | relative_url }}" alt="False-colour SWIR satellite composite of the Nile Valley at the Qena Bend">
+  <div class="banner-overlay">
+    <div class="wrap">
+      <p class="banner-eyebrow">Hello, welcome to my portfolio</p>
+      <h1>{{ site.author }}</h1>
+      <p class="banner-lede">{{ site.description }}</p>
+    </div>
+  </div>
+</section>
+<p class="banner-credit wrap">Nile Valley at the Qena Bend — false-colour SWIR composite</p>
+
+<section class="band">
+  <div class="wrap prose bio">
+    <h2>About</h2>
+    <p>
+      Write a short bio here — two or three sentences on your background, the kind of
+      geospatial work you do, and what you're looking for. This is the first thing most
+      visitors read, so keep it specific and concrete.
+    </p>
+    <p><a class="link-more" href="{{ '/about/' | relative_url }}">More About Me &rarr;</a></p>
   </div>
 </section>
 
-<section class="featured">
-  <h2>Featured Work</h2>
-  {% assign featured = site.projects | where: "featured", true %}
-  {% if featured.size == 0 %}{% assign featured = site.projects %}{% endif %}
+<section class="band band-alt">
+  <div class="wrap">
+    <h2 class="band-title">Featured Work</h2>
+    {% assign featured = site.projects | where: "featured", true %}
+    {% if featured.size == 0 %}{% assign featured = site.projects %}{% endif %}
 
-  {% if featured.size > 0 %}
-  <div class="carousel" data-carousel>
-    <div class="carousel-track">
-      {% for project in featured %}
-      <article class="carousel-slide" {% unless forloop.first %}hidden{% endunless %}>
-        {% if project.thumbnail %}
-        <a class="carousel-image" href="{{ project.url | relative_url }}">
-          <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" loading="lazy">
-        </a>
-        {% endif %}
-        <div class="carousel-caption">
-          <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-          <p>{{ project.summary | default: project.description | truncate: 180 }}</p>
-          <a class="link-more" href="{{ project.url | relative_url }}">More About This Project &rarr;</a>
-        </div>
-      </article>
-      {% endfor %}
+    {% if featured.size > 0 %}
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        {% for project in featured %}
+        <article class="carousel-slide" {% unless forloop.first %}hidden{% endunless %}>
+          {% if project.thumbnail %}
+          <a class="carousel-image" href="{{ project.url | relative_url }}">
+            <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" loading="lazy">
+          </a>
+          {% endif %}
+          <div class="carousel-caption">
+            <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+            <p>{{ project.summary | default: project.description | truncate: 180 }}</p>
+            <a class="link-more" href="{{ project.url | relative_url }}">More About This Project &rarr;</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <button type="button" class="carousel-btn carousel-prev" aria-label="Previous project">&larr;</button>
+      <button type="button" class="carousel-btn carousel-next" aria-label="Next project">&rarr;</button>
+      <div class="carousel-counter"><span data-carousel-index>1</span> / {{ featured.size }}</div>
     </div>
-    <button type="button" class="carousel-btn carousel-prev" aria-label="Previous project">&larr;</button>
-    <button type="button" class="carousel-btn carousel-next" aria-label="Next project">&rarr;</button>
-    <div class="carousel-counter"><span data-carousel-index>1</span> / {{ featured.size }}</div>
-  </div>
-  {% else %}
-  <p class="empty">No projects yet — add one under <code>_projects/</code>.</p>
-  {% endif %}
+    {% else %}
+    <p class="empty">No projects yet — add one under <code>_projects/</code>.</p>
+    {% endif %}
 
-  <p class="more-link"><a href="{{ '/portfolio/' | relative_url }}">More Projects &rarr;</a></p>
+    <p class="more-link"><a class="btn" href="{{ '/portfolio/' | relative_url }}">More Projects &rarr;</a></p>
+  </div>
 </section>
 
 <script src="{{ '/assets/js/carousel.js' | relative_url }}" defer></script>
