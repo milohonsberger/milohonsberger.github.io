@@ -4,6 +4,7 @@ type: webmap
 featured: true
 summary: An interactive map of California's National Register of Historic Places buildings and structures, with per-county choropleths.
 tags: [Folium, GeoPandas, Python, Leaflet]
+thumbnail: /assets/images/nrhp-viewer-thumb.jpg
 links:
   - label: View Project
     url: https://milohonsberger.github.io/California_NRHP_Viewer/
