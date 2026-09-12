@@ -18,6 +18,22 @@ collections:
     output: true
     permalink: /projects/:path/
 
+# Portfolio sections, in display order. `type` is matched against each
+# project's `type:` front matter. To add a new format (StoryMap, dashboard,
+# report, ...) just add an entry here — no template changes needed.
+# Projects whose type matches nothing here fall into a catch-all section, so
+# nothing ever silently disappears.
+project_categories:
+  - type: webmap
+    title: Web Maps
+    note: Interactive maps built in Jupyter (Folium / ipyleaflet), linked out to a rendered notebook.
+  - type: gee
+    title: Google Earth Engine
+    note: Published Earth Engine Apps for interactive geospatial analysis.
+  - type: staticmap
+    title: Static Maps
+    note: Cartography produced in QGIS/ArcGIS or Python (Matplotlib/GeoPandas).
+
 defaults:
   - scope:
       path: ""
@@ -45,5 +61,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - docker-compose.yml
   - node_modules
   - vendor

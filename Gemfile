@@ -10,6 +10,10 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
 end
 
+# Required by `jekyll serve` on Ruby 3.x — webrick left the stdlib in Ruby 3.0.
+# Local preview only; GitHub Pages ignores this Gemfile when it builds.
+gem "webrick", "~> 1.8"
+
 # Windows/JRuby shims some Jekyll versions need.
 platforms :mingw, :x64_mingw, :mswin, :jruby do
   gem "tzinfo", ">= 1", "< 3"

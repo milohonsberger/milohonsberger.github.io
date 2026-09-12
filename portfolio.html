@@ -10,47 +10,50 @@ permalink: /portfolio/
   </div>
 </section>
 
-<section class="band" id="webmap">
+{% comment %}
+  Sections are driven by `project_categories` in _config.yml — adding a format
+  is a config edit, not a template edit. Bands alternate cream/sand.
+{% endcomment %}
+{% for category in site.project_categories %}
+  {% assign alt = forloop.index0 | modulo: 2 %}
+  {% assign items = site.projects | where: "type", category.type %}
+<section class="band{% if alt == 1 %} band-alt{% endif %}" id="{{ category.type }}">
   <div class="wrap">
-    <h2 class="band-title">Web Maps</h2>
-    <p class="section-note">Interactive maps built in Jupyter (Folium / ipyleaflet), linked out to a rendered notebook.</p>
+    <h2 class="band-title">{{ category.title }}</h2>
+    {% if category.note %}<p class="section-note">{{ category.note }}</p>{% endif %}
     <div class="card-grid">
-      {% assign webmaps = site.projects | where: "type", "webmap" %}
-      {% for project in webmaps %}
+      {% for project in items %}
         {% include project-card.html project=project %}
       {% else %}
-        <p class="empty">No web map projects yet — add one under <code>_projects/</code>.</p>
+        <p class="empty">Nothing here yet — add a project with <code>type: {{ category.type }}</code> under <code>_projects/</code>.</p>
       {% endfor %}
     </div>
   </div>
 </section>
+{% endfor %}
 
-<section class="band band-alt" id="gee">
-  <div class="wrap">
-    <h2 class="band-title">Google Earth Engine</h2>
-    <p class="section-note">Published Earth Engine Apps for interactive geospatial analysis.</p>
-    <div class="card-grid">
-      {% assign geeprojects = site.projects | where: "type", "gee" %}
-      {% for project in geeprojects %}
-        {% include project-card.html project=project %}
-      {% else %}
-        <p class="empty">No Earth Engine projects yet — add one under <code>_projects/</code>.</p>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+{% comment %}
+  Catch-all: any project whose `type` matches no configured category. The
+  comma-wrapping makes the match exact, and a missing type yields ",,"
+  which never matches, so untyped projects surface here too.
+{% endcomment %}
+{% capture known_types %}{% for c in site.project_categories %},{{ c.type }}{% endfor %},{% endcapture %}
+{% assign leftover_count = 0 %}
+{% for project in site.projects %}{% capture needle %},{{ project.type }},{% endcapture %}{% unless known_types contains needle %}{% assign leftover_count = leftover_count | plus: 1 %}{% endunless %}{% endfor %}
 
-<section class="band" id="staticmap">
+{% if leftover_count > 0 %}
+  {% assign alt = site.project_categories.size | modulo: 2 %}
+<section class="band{% if alt == 1 %} band-alt{% endif %}" id="other">
   <div class="wrap">
-    <h2 class="band-title">Static Maps</h2>
-    <p class="section-note">Cartography produced in QGIS/ArcGIS or Python (Matplotlib/GeoPandas).</p>
+    <h2 class="band-title">Other Projects</h2>
     <div class="card-grid">
-      {% assign staticmaps = site.projects | where: "type", "staticmap" %}
-      {% for project in staticmaps %}
-        {% include project-card.html project=project %}
-      {% else %}
-        <p class="empty">No static map projects yet — add one under <code>_projects/</code>.</p>
+      {% for project in site.projects %}
+        {% capture needle %},{{ project.type }},{% endcapture %}
+        {% unless known_types contains needle %}
+          {% include project-card.html project=project %}
+        {% endunless %}
       {% endfor %}
     </div>
   </div>
 </section>
+{% endif %}

@@ -1,0 +1,37 @@
+# Local preview that mirrors the GitHub Pages build.
+# The github-pages gem pins the same Jekyll version production uses, so what
+# you see here is what deploys.
+#
+#   docker compose up        ->  http://localhost:4000
+#   docker compose down      ->  stop
+#
+# First run takes a few minutes (installing gems); afterwards they're cached
+# in the named volume and startup is quick.
+
+services:
+  jekyll:
+    image: ruby:3.3
+    working_dir: /site
+    ports:
+      - "4000:4000"
+      - "35729:35729" # livereload
+    volumes:
+      - .:/site
+      - bundle:/usr/local/bundle
+    environment:
+      BUNDLE_PATH: /usr/local/bundle
+      JEKYLL_ENV: development
+    # --force_polling is required: filesystem events don't cross the Windows
+    # bind mount, so without it edits won't trigger a rebuild.
+    # Jekyll reports its bind address as http://0.0.0.0:4000 (inside the
+    # container), which isn't the URL to open — so print the real one first.
+    command:
+      - bash
+      - -lc
+      - >-
+        (bundle check || bundle install) &&
+        printf '\n  ============================================\n   Preview ready at:  http://localhost:4000\n  ============================================\n\n' &&
+        bundle exec jekyll serve --host 0.0.0.0 --livereload --force_polling
+
+volumes:
+  bundle:

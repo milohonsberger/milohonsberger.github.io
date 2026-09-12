@@ -13,15 +13,28 @@ layout: default
       </ul>
       {% endif %}
 
+      {% comment %}
+        Actions are format-agnostic: a project declares any number of labelled
+        links. The first renders as the primary button, the rest as secondary.
+        `notebook_url` / `app_url` / `code_url` are still honoured as a
+        fallback when no `links:` list is given.
+      {% endcomment %}
       <div class="project-actions">
-        {% if page.type == "webmap" and page.notebook_url %}
+        {% if page.links %}
+          {% for link in page.links %}
+          <a class="btn{% unless forloop.first %} btn-secondary{% endunless %}"
+             href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }} &rarr;</a>
+          {% endfor %}
+        {% else %}
+          {% if page.notebook_url %}
           <a class="btn" href="{{ page.notebook_url }}" target="_blank" rel="noopener">View Notebook &rarr;</a>
-        {% endif %}
-        {% if page.type == "gee" and page.app_url %}
+          {% endif %}
+          {% if page.app_url %}
           <a class="btn" href="{{ page.app_url }}" target="_blank" rel="noopener">Launch Earth Engine App &rarr;</a>
-        {% endif %}
-        {% if page.code_url %}
+          {% endif %}
+          {% if page.code_url %}
           <a class="btn btn-secondary" href="{{ page.code_url }}" target="_blank" rel="noopener">Source Code &rarr;</a>
+          {% endif %}
         {% endif %}
       </div>
 
@@ -29,11 +42,24 @@ layout: default
       <img class="project-hero" src="{{ page.thumbnail | relative_url }}" alt="{{ page.title }}">
       {% endif %}
 
-      {% if page.type == "staticmap" and page.images %}
+      {% comment %}
+        An image gallery is available to any project, not just static maps.
+      {% endcomment %}
+      {% if page.images %}
       <div class="gallery">
         {% for img in page.images %}
-        <img src="{{ img | relative_url }}" alt="{{ page.title }} map {{ forloop.index }}" loading="lazy">
+        <img src="{{ img | relative_url }}" alt="{{ page.title }} figure {{ forloop.index }}" loading="lazy">
         {% endfor %}
+      </div>
+      {% endif %}
+
+      {% comment %}
+        Optional inline embed (Earth Engine app, hosted map, dashboard...).
+        Use sparingly — many hosts block framing.
+      {% endcomment %}
+      {% if page.embed_url %}
+      <div class="embed">
+        <iframe src="{{ page.embed_url }}" title="{{ page.title }}" loading="lazy" allowfullscreen></iframe>
       </div>
       {% endif %}
 
