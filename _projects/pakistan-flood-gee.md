@@ -8,39 +8,29 @@ thumbnail: /assets/images/flood-analysis-thumb.jpg
 links:
   - label: Launch Earth Engine App
     url: https://milohonsberger-geospatial.projects.earthengine.app/view/pakistan-flood-analysis
+  - label: View Script
+    url: https://code.earthengine.google.com/2977192938a8f42cb5d5cd63434e78eb
 ---
 
-Maps flood extent across Dadu District, Sindh, following the catastrophic
-August 2022 Pakistan floods, using Sentinel-1 radar change detection. The
-analysis identified roughly **305,000 hectares** of inundation — about **16%
-of the district**.
+This project maps flood extent across the Dadu District of Pakistan following
+the 2022 flooding event, using Sentinel-1 C-band synthetic aperture radar to
+penetrate the storm clouds that caused the flooding. SAR is also well suited to
+flood detection because smooth water surfaces reflect the radar signal away from
+the sensor, which marks flooded areas clearly as pixels with weak return values.
 
-Radar is the right sensor for this problem. The floods sat under weeks of
-monsoon cloud, which would have defeated any optical approach, but Sentinel-1's
-C-band SAR sees through cloud entirely. Open water is also smooth enough to
-reflect radar away from the sensor rather than back to it, so flooding appears
-as a sharp drop in backscatter — a strong, unambiguous signal.
+The analysis compares a pre-flood baseline (1 June – 15 July 2022) against
+imagery from the peak of the flooding (20 August – 10 September 2022). Rasters
+within these ranges were composited into a single mosaic containing the VV, VH,
+and VV/VH ratio bands. The composite of these three bands created two images
+which clearly showed water levels pre- and post-flooding. The flooded area
+itself was calculated by taking the ratio of the pre- and post-flood VV/VH
+bands.
 
-The method compares a pre-monsoon baseline (1 June – 15 July 2022) against
-imagery from the peak of the flooding (20 August – 10 September 2022), taking
-the ratio of VV/VH between the two periods and thresholding it. A raw threshold
-alone produces a noisy, over-inclusive result, so three masks refine it:
-permanent water bodies from the JRC Global Surface Water dataset, terrain
-steeper than 5° from HydroSHEDS, and isolated pixel clusters below a
-connectivity threshold. Each removes a distinct class of false positive —
-the Indus and Manchar Lake themselves, hillslope shadow, and residual speckle.
+Additional masks were applied to the result to get a more accurate measure of
+the flooding extent. These filters removed any previously identified flood
+pixels which overlapped permanent water bodies such as lakes, pixels located in
+areas with a steep slope, and isolated pixels which can be assumed to be noise.
 
-Notable techniques:
-- Dual-polarisation RGB composite (VV, VH, VV/VH ratio), which separates open
-  water from saturated soil and vegetation more cleanly than single-polarisation
-  VH alone
-- Refined Lee speckle filtering applied per band before differencing, so the
-  change signal reflects surface conditions rather than radar noise
-- Ratio-based change detection with masking for permanent water, steep terrain,
-  and disconnected pixels
-- Zonal area statistics computed against the district boundary, pre-computed
-  and reported rather than evaluated at runtime, since the filtering pipeline
-  is too expensive to recompute per viewer
+Ultimately the analysis identified roughly **305,000 hectares** of inundation —
+about **16% of the district**.
 
-The Refined Lee speckle filter is Guido Lemoine's Earth Engine implementation
-of the SNAP S1TBX algorithm.
