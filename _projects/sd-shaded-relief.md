@@ -1,33 +1,25 @@
 ---
 title: Shaded Relief of San Diego County
 type: staticmap
-featured: false
-published: false # flip to true (or delete this line) once the map + thumbnail exist
-summary: A hypsometric shaded-relief map of San Diego County, from the Salton Sea trough to the Pacific, built from USGS 3DEP elevation data.
-tags: [QGIS, Cartography, DEM, Hillshade]
+featured: true
+summary: A hypsometric shaded-relief map of San Diego County, from the Pacific coast to the Peninsular Ranges and the eastern desert, built from USGS 3DEP elevation data in QGIS.
+tags: [QGIS, Cartography, DEM, Hillshade, GDAL]
 thumbnail: /assets/images/sd-relief-thumb.jpg
-images:
-  - /assets/images/sd-relief-full.jpg
 links: []
 ---
 
-A terrain map of San Diego County showing the full elevation gradient in about
-60 miles: coastal mesas, the Peninsular Ranges rising past 6,000 feet at Hot
-Springs Mountain and Cuyamaca Peak, and the drop east into the Anza-Borrego
-desert.
+The figure showcases the terrain of San Diego County along with several notable
+places of interest. The locations include cities and towns along the coastline
+as well as San Diego County's most notable peaks.
 
-## Data
+The map was created in QGIS, primarily using Digital Elevation Model rasters
+sourced from USGS. Four DEMs were merged into a single mosaic and then clipped
+to the county boundary. A custom color ramp was applied with manual breaks to
+create the gradient on display. The mosaic DEM was then used to create a
+hillshade, which was displayed on top of the DEM with the Multiply blend mode
+and 50% transparency. This was done to emphasize the terrain of the county
+while maintaining the custom gradient.
 
-- **Elevation** — USGS 3DEP 1 arc-second DEM (four tiles, mosaicked)
-- **County boundary** — <!-- SanGIS / Census TIGER -->
-- **Labeled features** — <!-- GNIS summits, hydrography, municipalities -->
-
-## Method
-
-<!-- Fill in after building: mosaic → reproject → clip → multidirectional
-hillshade → hypsometric tint → multiply blend → labels → layout. Note the
-design choices (projection, ramp breaks, z-factor, label hierarchy). -->
-
-## Design notes
-
-<!-- Why this ramp, why this projection, what got left off the map and why. -->
+Finally, a vignette was created to emphasize the separation of the elevation
+model from the basemap. The peaks, cities, and rivers shown were sourced from
+the California State Geoportal.

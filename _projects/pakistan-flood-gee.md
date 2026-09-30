@@ -31,6 +31,6 @@ the flooding extent. These filters removed any previously identified flood
 pixels which overlapped permanent water bodies such as lakes, pixels located in
 areas with a steep slope, and isolated pixels which can be assumed to be noise.
 
-Ultimately the analysis identified roughly **305,000 hectares** of inundation —
-about **16% of the district**.
+Ultimately the analysis identified roughly 305,000 hectares of inundation —
+about 16% of the district.
 

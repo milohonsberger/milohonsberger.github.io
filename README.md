@@ -10,7 +10,6 @@ Portfolio site built with Jekyll, hosted on GitHub Pages. Showcases:
 ## Pages
 
 - `/` ([index.html](index.html)) — hero + a carousel of featured projects
-- `/about/` ([about.md](about.md)) — bio
 - `/resume/` ([resume.md](resume.md)) — resume content / PDF download
 - `/portfolio/` ([portfolio.html](portfolio.html)) — full project listing, grouped by
   Web Maps / Earth Engine / Static Maps
