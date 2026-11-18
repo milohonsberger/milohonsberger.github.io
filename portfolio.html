@@ -3,16 +3,9 @@ layout: default
 title: Portfolio
 permalink: /portfolio/
 ---
-<section class="band band-head">
-  <div class="wrap">
-    <h1>Portfolio</h1>
-    <p class="section-note">Web maps, Google Earth Engine applications, and static cartography.</p>
-  </div>
-</section>
-
 {% comment %}
   Sections are driven by `project_categories` in _config.yml — adding a format
-  is a config edit, not a template edit. Bands alternate cream/sand.
+  is a config edit, not a template edit. Bands alternate white/gray.
 {% endcomment %}
 {% for category in site.project_categories %}
   {% assign alt = forloop.index0 | modulo: 2 %}

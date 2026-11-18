@@ -2,7 +2,7 @@
 layout: default
 ---
 <section class="band">
-  <div class="wrap prose">
+  <div class="wrap prose{% if page.wide %} prose-wide{% endif %}">
     {{ content }}
   </div>
 </section>

@@ -1,31 +1,17 @@
-/* Palette sampled from the Nile/Qena SWIR banner:
-   crimson vegetation, cream desert, near-black river. */
+/* Formal light palette: white page, cool gray bands, charcoal text,
+   deep navy accent. Always light — no dark-mode override. */
 :root {
-  --bg: #fbf7ef;
-  --bg-alt: #f2e8d5;
-  --fg: #1a1613;
-  --muted: #6e6154;
-  --accent: #c0172e;
-  --accent-deep: #8e1023;
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-alt: #f5f6f8;
+  --fg: #14181f;
+  --muted: #5b6472;
+  --accent: #1f3a5f;
+  --accent-deep: #13263f;
   --on-accent: #ffffff;
   --card-bg: #ffffff;
-  --border: #e3d5bc;
-  --shadow: 0 1px 2px rgba(26, 22, 19, 0.06), 0 8px 24px rgba(26, 22, 19, 0.06);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14110d;
-    --bg-alt: #1c1712;
-    --fg: #f1e7d7;
-    --muted: #a8988a;
-    --accent: #e9596e;
-    --accent-deep: #f2798a;
-    --on-accent: #1a1613;
-    --card-bg: #1f1a14;
-    --border: #362c22;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
+  --border: #e1e4e9;
+  --shadow: 0 1px 2px rgba(20, 24, 31, 0.05), 0 8px 24px rgba(20, 24, 31, 0.06);
 }
 
 * { box-sizing: border-box; }
@@ -61,10 +47,10 @@ img { max-width: 100%; }
   transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 /* Once the page scrolls, lift the bar off the content so it reads as pinned
-   rather than blending into the cream band beneath it. */
+   rather than blending into the band beneath it. */
 .site-header.is-stuck {
   background: color-mix(in srgb, var(--bg) 88%, transparent);
-  box-shadow: 0 1px 0 var(--border), 0 6px 20px rgba(26, 22, 19, 0.1);
+  box-shadow: 0 1px 0 var(--border), 0 6px 20px rgba(20, 24, 31, 0.08);
   border-bottom-color: transparent;
 }
 @supports (backdrop-filter: blur(8px)) {
@@ -115,9 +101,9 @@ img { max-width: 100%; }
   align-items: center;
   background: linear-gradient(
     90deg,
-    rgba(18, 15, 12, 0.88) 0%,
-    rgba(18, 15, 12, 0.66) 45%,
-    rgba(18, 15, 12, 0.15) 100%
+    rgba(14, 18, 26, 0.88) 0%,
+    rgba(14, 18, 26, 0.66) 45%,
+    rgba(14, 18, 26, 0.15) 100%
   );
   color: #fff;
 }
@@ -126,7 +112,7 @@ img { max-width: 100%; }
   letter-spacing: 0.12em;
   font-size: 0.78rem;
   margin: 0 0 0.6rem;
-  color: #f3c9ce;
+  color: #c9d3e0;
 }
 .banner-overlay h1 {
   margin: 0 0 0.6rem;
@@ -175,6 +161,11 @@ img { max-width: 100%; }
 .prose h2:first-child { margin-top: 0; }
 
 .bio h2 { margin-top: 0; }
+/* The bio spans the full page width instead of the narrow prose column. */
+.prose.bio { max-width: none; }
+
+/* Pages with `wide: true` in front matter (e.g. the resume). */
+.prose.prose-wide { max-width: 90ch; }
 
 /* ---------- Cards ---------- */
 
@@ -369,7 +360,7 @@ img { max-width: 100%; }
   .carousel-prev { left: 0.5rem; }
   .carousel-next { right: 0.5rem; }
   .banner-overlay {
-    background: linear-gradient(90deg, rgba(18, 15, 12, 0.9) 0%, rgba(18, 15, 12, 0.7) 100%);
+    background: linear-gradient(90deg, rgba(14, 18, 26, 0.9) 0%, rgba(14, 18, 26, 0.7) 100%);
   }
 }
 
